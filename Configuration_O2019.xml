@@ -1,4 +1,4 @@
-<Configuration ID="5df2a027-838a-456c-9181-07a0655ccf30">
+<Configuration>
   <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
     <Product ID="ProPlus2019Volume">
       <Language ID="hr-hr" />
