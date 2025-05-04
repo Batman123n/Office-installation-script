@@ -1,6 +1,6 @@
 <Configuration ID="5df2a027-838a-456c-9181-07a0655ccf30">
   <Add OfficeClientEdition="64" Channel="Current">
-    <Product ID="ProPlus2019Retail">
+    <Product ID="ProPlus2019Volume">
       <Language ID="hr-hr" />
       <ExcludeApp ID="Groove" />
       <ExcludeApp ID="Lync" />
