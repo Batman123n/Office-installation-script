@@ -1,5 +1,5 @@
 <Configuration>
-  <Add OfficeClientEdition="64" Channel="PerpetualVL">
+  <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
     <Product ID="ProPlus2019Volume">
       <Language ID="hr-hr" />
       <ExcludeApp ID="Groove" />
