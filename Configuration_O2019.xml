@@ -1,6 +1,6 @@
 <Configuration ID="17e8c73f-1d70-44d3-9b52-71c727effa22">
-  <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
-    <Product ID="ProPlus2019Volume" PIDKEY="NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP">
+  <Add OfficeClientEdition="64" Channel="Current">
+    <Product ID="ProPlus2019Retail>
       <Language ID="hr-hr" />
       <ExcludeApp ID="Groove" />
       <ExcludeApp ID="Lync" />
