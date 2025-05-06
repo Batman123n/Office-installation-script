@@ -4,5 +4,5 @@ Start-Process -FilePath "C:\setup_office.exe" -ArgumentList "/configure C:\Confi
 Remove-Item "C:\Configuration_O365.xml" -Force
 Remove-Item "C:\setup_office.exe" -Force
 
-This is basicscript for installing office if you want any other office verion just change the configuration to version you want.
+This is basic script for installing office if you want any other office verion just change the configuration to version you want.
 Have fun.
