@@ -1,0 +1,8 @@
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Batman123n/Office123/refs/heads/main/Configuration_O365.xml" -OutFile "C:\Configuration_O365.xml"
+Invoke-WebRequest -Uri "https://github.com/Batman123n/Office123/raw/refs/heads/main/setup_office.exe" -OutFile "C:\setup_office.exe"
+Start-Process -FilePath "C:\setup_office.exe" -ArgumentList "/configure C:\Configuration_O365.xml"-Verb RunAs -Wait
+Remove-Item "C:\Configuration_O365.xml" -Force
+Remove-Item "C:\setup_office.exe" -Force
+
+This is basicscript for installing office if you want any other office verion just change the configuration to version you want.
+Have fun.
