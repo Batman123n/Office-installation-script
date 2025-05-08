@@ -5,4 +5,5 @@ Remove-Item "C:\Configuration_O365.xml" -Force
 Remove-Item "C:\setup_office.exe" -Force
 
 This is basic script for installing office if you want any other office verion just change the configuration to version you want.
+All installers use this script but diferent configurations, they were converted to .exe file with ps2exe modul for powershell.
 Have fun.
