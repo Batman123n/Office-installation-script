@@ -1,6 +1,6 @@
 <Configuration>
   <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
-    <Product ID="ProPlus2019Volume" PIDKEY="NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP">
+    <Product ID="ProPlus2019Volume">
       <Language ID="hr-hr" />
       <ExcludeApp ID="Groove" />
       <ExcludeApp ID="Lync" />
@@ -9,16 +9,12 @@
       <ExcludeApp ID="Outlook" />
     </Product>
   </Add>
-
   <Property Name="AUTOACTIVATE" Value="1" />
   <Property Name="SharedComputerLicensing" Value="0" />
   <Property Name="FORCEAPPSHUTDOWN" Value="FALSE" />
   <Property Name="DeviceBasedLicensing" Value="0" />
   <Property Name="SCLCacheOverride" Value="0" />
-
   <Updates Enabled="TRUE" />
-
   <RemoveMSI />
-
   <Logging Level="Standard" Path="C:\OfficeLogs" />
 </Configuration>
