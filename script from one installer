@@ -1,9 +1,10 @@
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Batman123n/Office-installation-script/refs/heads/main/Croatian%20configurations/Configuration_O365%20Hrvatski.xml" -OutFile "C:\Configuration_O365.xml"
-Invoke-WebRequest -Uri "https://github.com/Batman123n/Office123/raw/refs/heads/main/setup_office.exe" -OutFile "C:\setup_office.exe"
-Start-Process -FilePath "C:\setup_office.exe" -ArgumentList "/configure C:\Configuration_O365.xml"-Verb RunAs -Wait
-Remove-Item "C:\Configuration_O365.xml" -Force
-Remove-Item "C:\setup_office.exe" -Force
+md "C:\Office_installation"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Batman123n/Office-installation-script/refs/heads/main/English%20configurations/Configuration_O365%20English.xml" -OutFile "C:\Office_installation\Configuration_O365.xml"
+Invoke-WebRequest -Uri "https://github.com/Batman123n/Office123/raw/refs/heads/main/setup_office.exe" -OutFile "C:\Office_installation\setup_office.exe"
+Start-Process -FilePath "C:\Office_installation\setup_office.exe" -ArgumentList "/configure C:\Office_installation\Configuration_O365.xml" -Verb RunAs -Wait
+Remove-Item "C:\Office_installation" -Recurse -Force
 
 This is basic script for installing office if you want any other office verion just change the configuration to version you want.
-All installers use this script but diferent configurations, they were converted to .exe file with ps2exe modul for powershell.
+All installers use this script but diferent configurations and croatian installers use croatian named directories,
+they were converted to .exe file with ps2exe modul for powershell.
 Have fun.
