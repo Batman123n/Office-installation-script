@@ -9,6 +9,7 @@ Office installers/scripts
   - Have fun!
 
 All versions of office come unactivated and you will need to have a licence to use them.
+File setup_office.exe is just renamed setup.exe from ODT (office deployment tool) and configs are custom.
 You can contect me on gmail darioturek4@gmail.com if you want any other version for me to include.
 Have a great day!
 
