@@ -5,7 +5,7 @@ Office installers/scripts
   - Pick desired version
   - Download installer/script
   - Just double click on installer/script
-  - After install use a licence or log into a Microsoft account.
+  - After installation, use a license or sign in with a Microsoft account.
   - Have fun!
 
 All versions of office come unactivated and you will need to have a licence to use them.
