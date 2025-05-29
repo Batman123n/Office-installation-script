@@ -9,4 +9,4 @@ The executables are same as python scripts but can be used without python instal
   - Download the executable
   - Just double click on it
   - And input correct version
-# Windows will flag the executables so I recomend installing with python.
+# Windows may flag the executables so I recomend installing with python.
