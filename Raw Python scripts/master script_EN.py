@@ -24,7 +24,7 @@ if Response in office_version:
     urllib.request.urlretrieve(url, filename)
     print(f"Download complete.: {filename}")
     
-    print("Pokrećem instalaciju...")
+    print("Starting installation...")
     subprocess.run([filename])
 else:
     print("Unknown version. Please type one of these: 2019, 2021, 2024 ili 365.")
