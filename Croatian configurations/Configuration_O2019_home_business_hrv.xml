@@ -1,6 +1,6 @@
 <Configuration>
   <Add OfficeClientEdition="64" Channel="Current">
-    <Product ID="HomeAndBusiness2019Retail">
+    <Product ID="HomeBusiness2019Retail">
       <Language ID="hr-hr" />
       <ExcludeApp ID="Groove" />
       <ExcludeApp ID="Lync" />
