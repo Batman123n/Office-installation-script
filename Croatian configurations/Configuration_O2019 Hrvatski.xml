@@ -11,4 +11,7 @@
   </Add>
 
   <RemoveMSI />
+
+  <Display Level="None" AcceptEULA="TRUE" />
+  <Property Name="AUTOACTIVATE" Value="1" />
 </Configuration>
