@@ -1,3 +1,5 @@
+#define UNICODE
+#define _UNICODE
 #include <windows.h>
 #include <string>
 #include <urlmon.h>
@@ -181,3 +183,4 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow) {
 
     return 0;
 }
+
