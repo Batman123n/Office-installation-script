@@ -1,4 +1,4 @@
-To compile you need VS 2022 or your compiler of choice
+#To compile you need VS 2022 or your compiler of choice
 To compile in VS 2022 you select "windows desktop application" and paste the code from the main branch from folder:
 "C++ GUI Installers" and build it.
 On command line you need to manualy install c++ compiler and compile it yourself.
