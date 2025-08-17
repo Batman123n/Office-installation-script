@@ -6,4 +6,5 @@
  - On command line you need to manualy install c++ compiler and compile it yourself.
  - With cl you use something like this: cl "path to DarioInstallsOffice.cpp" /EHsc /Fe:"path to DarioInstallsOffice.exe" user32.lib gdi32.lib shell32.lib urlmon.lib
  - You need to install VS build tools to use cl compiler.
+ - This method is more manual and error-prone. You have to manage paths, libraries, and compiler options yourself.
 I recomend VS 2022 method which is way easier.
