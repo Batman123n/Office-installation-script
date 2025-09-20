@@ -1,5 +1,6 @@
 #define UNICODE
 #define _UNICODE
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <thread>
 #include <shellapi.h>
@@ -148,4 +149,5 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow) {
     }
     return 0;
 }
+
 
