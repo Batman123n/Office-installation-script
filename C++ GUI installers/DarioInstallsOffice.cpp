@@ -1,5 +1,6 @@
 #define UNICODE
 #define _UNICODE
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <thread>
 #include <shellapi.h>
@@ -78,7 +79,7 @@ void InstallSelected() {
             if (DownloadFile(url, file)) {
                 RunFileAndDelete(file);
             }
-        }).detach();
+            }).detach();
     }
 }
 
@@ -86,8 +87,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_CREATE: {
         hFont = CreateFont(-16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-                           DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                           CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
+            DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+            CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
 
         RECT rc; GetClientRect(hwnd, &rc);
         int cx = (rc.right - rc.left) / 2;
