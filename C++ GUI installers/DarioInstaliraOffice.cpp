@@ -12,7 +12,7 @@ const wchar_t* versions[] = {
     L"Office 2019 Pro Plus HR",
     L"Office 2021 Pro Plus HR",
     L"Office 2024 Pro Plus HR",
-    L"Office 365 Enterprise"
+    L"Office 365 Enterprise HR"
 };
 
 const wchar_t* urls[] = {
@@ -148,3 +148,4 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow) {
     }
     return 0;
 }
+
