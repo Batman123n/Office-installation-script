@@ -2,10 +2,10 @@
 # Compiling in VS 2022:
  - To compile in VS 2022 you select "windows desktop application" and paste the code from the main branch from folder =>
  - "C++ GUI Installers" and build it.
-# Compiling with cl compiler or compiler of your choice.
+# Compiling with g++ compiler or compiler of your choice.
  - On command line you need to manually install c++ compiler and compile it yourself.
- - With cl you use something like this: cl "path to DarioInstallsOffice.cpp" /EHsc /Fe:"path to DarioInstallsOffice.exe" user32.lib gdi32.lib shell32.lib urlmon.lib
- - You need to install VS build tools to use cl compiler.
- - This method is more manual and error-prone. You have to manage paths, libraries, and compiler options yourself.
+ - With g++ you use something like this: g++ DarioInstallsOffice.cpp -o DarioInstallsOffice.exe -lgdi32 -luser32 -lshell32 -lwininet -mwindows
+ - You need to install GCC to compile it this way.
 
- I recomend VS 2022 method which is way easier.
+ I recomend using g++ which is part of GCC.
+ # Have fun!
