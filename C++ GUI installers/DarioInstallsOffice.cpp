@@ -16,17 +16,17 @@ const wchar_t* versions[] = {
 };
 
 const wchar_t* urls[] = {
-    L"https://github.com/Batman123n/Office-installation-script/releases/download/Office_installers-v2/Office.2019.eng.exe",
-    L"https://github.com/Batman123n/Office-installation-script/releases/download/Office_installers-v2/Office.2021.eng.exe",
-    L"https://github.com/Batman123n/Office-installation-script/releases/download/Office_installers-v2/Office.2024.eng.exe",
+    L"https://github.com/Batman123n/Office-installation-script/releases/download/office_installers_v2/Office.2019.eng.exe",
+    L"https://github.com/Batman123n/Office-installation-script/releases/download/office_installers_v2/Office.2021.eng.exe",
+    L"https://github.com/Batman123n/Office-installation-script/releases/download/office_installers_v2/Office.2024.eng.exe",
     L"https://github.com/Batman123n/Office-installation-script/releases/download/office_installers_v2/Office.365.eng.exe"
 };
 
 const wchar_t* files[] = {
-    L"Office_2019_Hrvatski.exe",
-    L"Office_2021_Hrvatski.exe",
-    L"Office_2024_Hrvatski.exe",
-    L"Office_365_Hrvatski.exe"
+    L"Office.2019.eng.exe",
+    L"Office.2021.eng.exe",
+    L"Office.2024.eng.exe",
+    L"Office.365.eng.exe"
 };
 
 HWND hComboBox;
