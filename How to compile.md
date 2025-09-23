@@ -5,7 +5,7 @@
 # Compiling with g++ compiler or compiler of your choice.
  - On command line you need to manually install c++ compiler and compile it yourself.
  - With g++ you use something like this: =>
- - g++ dario.cpp -o dario.exe -static -static-libgcc -static-libstdc++ -lgdi32 -luser32 -lshell32 -lwininet -mwindows
+ - g++ DarioInstallsOffice.cpp -o DarioInstallsOffice.exe -static -static-libgcc -static-libstdc++ -lgdi32 -luser32 -lshell32 -lwininet -mwindows
 
  - You need to install GCC to compile it this way.
 
