@@ -1,0 +1,18 @@
+# Build artifacts
+build/
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.lib
+
+# Qt/System
+.vs/
+*.user
+*.suo
+
+# Project specific
+setup_office.exe
+C:/Office_instalacija/

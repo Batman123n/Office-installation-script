@@ -1,17 +1,30 @@
-Office installers/scripts
-# This is a project about installing office easier.
-# How to install:
-  - Go to Releases
-  - Pick desired version
-  - Download installer/script
-  - Just double click on installer/script
-  - After installation, use a license or sign in with a Microsoft account.
-  - Have fun!
+# Office Installation Script
+This tool uses low level C++ Win32 API and Qt to provide a custom GUI for configuring and installing Microsoft Office using the Office Deployment Tool (ODT).
 
-All versions of office come unactivated and you will need to have a licence to use them.
-File setup_office.exe is just renamed setup.exe from ODT (office deployment tool) and configs are custom.
-You can contect me on gmail darioturek4@gmail.com if you want any other version for me to include.
-Have a great day!
+## Features:
+  * Dynamic XML configuration generation
+  * Support for multiple Office versions (2019, 2021, 2024, 365)
+  * Custom application selection (Word, Excel, PowerPoint, etc.)
+  * Embedded `setup_office.exe` for a single-executable experience
+  * Automatic cleanup of temporary installation files
+  * Statically linked for maximum portability
 
+## Requirements: 
+* Visual Studio 2022 with "Desktop development with C++" workload installed.
+* Static Qt 6 installation (default path: `D:/QtStatic`).
+* CMake.
 
+## How to build:
+First clone my repo with this command: \
+`git clone https://github.com/Batman123n/Office-installation-script.git`
 
+### Build instructions:
+  1. Ensure `setup_office.exe` is present in the project root to embed it.
+  2. Run `build.bat`.
+ * This will automatically configure the project with CMake, compile the resources, and perform an LTO-optimized build.
+ * The final standalone executable will be copied to the project root.
+
+### Disclaimer:
+#### Make sure you dont have MS office already installed
+#### Use this tool at your own risk. Always ensure you have the appropriate licenses for Microsoft Office.
+#### This tool is provided for administrative convenience and follows Microsoft's official deployment patterns.
