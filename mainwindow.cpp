@@ -225,7 +225,7 @@ void MainWindow::runInstallation() {
 
     QFile xmlFile(xmlPath);
     if (!xmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, "Greška", "Nije moguće kreirati konfiguracioni fajl.");
+        QMessageBox::critical(this, "Greška", "Nije moguće kreirati konfig za office");
         return;
     }
     xmlFile.write(generateXML().toUtf8());
@@ -234,17 +234,18 @@ void MainWindow::runInstallation() {
     QString sourcePath = ":/setup_office.exe";
 
     if (!QFile::exists(sourcePath)) {
-        QMessageBox::critical(this, "Greska", "Ova aplikacija ne može pokrenuti bez setup_office.exe.");
+        QMessageBox::critical(this, "Greska", "Ova aplikacija ne može se pokrenuti bez setup_office.exe.");
         return;
     }
 
     system("taskkill /F /IM setup_office.exe /T 2>nul");
-    Sleep(500);
+    Sleep(100);
 
     if (QFile::exists(targetExePath)) {
-        if (!QFile::remove(targetExePath)) {
-            Sleep(500);
-            QFile::remove(targetExePath);
+        int retries = 5;
+        while (retries > 0 && !QFile::remove(targetExePath)) {
+            Sleep(50);
+            retries--;
         }
     }
 
@@ -264,7 +265,7 @@ void MainWindow::runInstallation() {
 
 void MainWindow::onInstallationFinished(bool success) {
     if (success) {
-        QMessageBox::information(this, "Instalacija završena", "Microsoft Office je uspešno instaliran.");
+        QMessageBox::information(this, "Instalacija završena", "Microsoft Office je uspješno instaliran.");
     } else {
         QMessageBox::critical(this, "Greška", "Nije moguće pokrenuti instalaciju.");
     }
