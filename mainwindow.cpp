@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QResource>
 #include <QScreen>
+#include <QGuiApplication>
 #include <QCoreApplication>
 #include <QTimer>
 #include <windows.h>
@@ -40,19 +41,29 @@ void InstallerThread::run() {
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    checkOfficeInstallation();
     setWindowIcon(QIcon(":/microsoft.ico"));
     setupUI();
     updateXML();
     int width = 420;
     int length = 500;
     resize(width, length);
+
+    // Centriranje prozora na ekranu
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (screen) {
+        QRect screenGeometry = screen->availableGeometry();
+        int x = (screenGeometry.width() - width) / 2;
+        int y = (screenGeometry.height() - length) / 2;
+        move(x, y);
+    }
+
+    checkOfficeInstallation();
 }
 
 void MainWindow::checkOfficeInstallation() {
     QString officePath = "C:\\Program Files\\Microsoft Office";
     if (QDir(officePath).exists()) {
-        QMessageBox::warning(nullptr, "Office već instaliran", "Detektovan je instaliran Microsoft Office na ovom računaru.\nAplikacija će se sada zatvoriti.");
+        QMessageBox::warning(this, "Office već instaliran", "Detektiran je Microsoft Office na ovom računalu.\nAplikacija će se sada zatvoriti.");
         QTimer::singleShot(0, []() { QCoreApplication::quit(); });
     }
 }
@@ -106,7 +117,7 @@ void MainWindow::setupUI() {
     mainLayout->addWidget(installBtn);
 
     setCentralWidget(centralWidget);
-    setWindowTitle("Dario installs MS Office");
+    setWindowTitle("Dario instalira MS Office");
 }
 
 QString MainWindow::generateXML() {
@@ -115,8 +126,7 @@ QString MainWindow::generateXML() {
 
 
     QString forcedExclusions = "      <ExcludeApp ID=\"Groove\" />\n"
-                               "      <ExcludeApp ID=\"Lync\" />\n"
-                               "      <ExcludeApp ID=\"OneDrive\" />\n";
+                               "      <ExcludeApp ID=\"Lync\" />\n";
 
     if (version == "2019") {
         xml = "<Configuration>\n";
@@ -126,7 +136,7 @@ QString MainWindow::generateXML() {
         xml += forcedExclusions;
 
         for (auto it = appCheckBoxes.begin(); it != appCheckBoxes.end(); ++it) {
-            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync" && it.key() != "OneDrive") {
+            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync") {
                 xml += QString("      <ExcludeApp ID=\"%1\" />\n").arg(it.key());
             }
         }
@@ -142,7 +152,7 @@ QString MainWindow::generateXML() {
         xml += forcedExclusions;
 
         for (auto it = appCheckBoxes.begin(); it != appCheckBoxes.end(); ++it) {
-            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync" && it.key() != "OneDrive") {
+            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync") {
                 xml += QString("      <ExcludeApp ID=\"%1\" />\n").arg(it.key());
             }
         }
@@ -164,7 +174,7 @@ QString MainWindow::generateXML() {
         xml += forcedExclusions;
 
         for (auto it = appCheckBoxes.begin(); it != appCheckBoxes.end(); ++it) {
-            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync" && it.key() != "OneDrive") {
+            if (!it.value()->isChecked() && it.key() != "Groove" && it.key() != "Lync") {
                 xml += QString("      <ExcludeApp ID=\"%1\" />\n").arg(it.key());
             }
         }
@@ -224,7 +234,7 @@ void MainWindow::runInstallation() {
     QString sourcePath = ":/setup_office.exe";
 
     if (!QFile::exists(sourcePath)) {
-        QMessageBox::critical(this, "Greska", "Ova aplikacija ne može da se pokrene bez setup_office.exe.");
+        QMessageBox::critical(this, "Greska", "Ova aplikacija ne može pokrenuti bez setup_office.exe.");
         return;
     }
 
@@ -254,7 +264,7 @@ void MainWindow::runInstallation() {
 
 void MainWindow::onInstallationFinished(bool success) {
     if (success) {
-        QMessageBox::information(this, "Instalacija završena", "Office instalacija je uspešno pokrenuta i privremeni fajlovi su obrisani.");
+        QMessageBox::information(this, "Instalacija završena", "Microsoft Office je uspešno instaliran.");
     } else {
         QMessageBox::critical(this, "Greška", "Nije moguće pokrenuti instalaciju.");
     }
