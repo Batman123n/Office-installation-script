@@ -16,7 +16,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-add_executable(Dario_Installer WIN32 main.cpp mainwindow.cpp mainwindow.h resources.qrc)
+add_executable(Dario_Installer WIN32 main.cpp mainwindow.cpp mainwindow.h resources.qrc app_icon.rc)
 
 target_link_libraries(Dario_Installer PRIVATE Qt6::Widgets)
 

@@ -16,6 +16,7 @@ class InstallerThread : public QThread {
 public:
     QString xmlPath;
     QString targetExePath;
+    QString installDir;
     QWidget *parentWidget;
 
 protected:
@@ -44,6 +45,7 @@ private:
 
     void setupUI();
     QString generateXML();
+    void checkOfficeInstallation();
 };
 
 #endif // MAINWINDOW_H

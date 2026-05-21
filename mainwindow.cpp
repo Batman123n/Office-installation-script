@@ -9,12 +9,14 @@
 #include <QResource>
 #include <QScreen>
 #include <QCoreApplication>
+#include <QTimer>
 #include <windows.h>
 #include <urlmon.h>
 #include <shellapi.h>
 
 #pragma comment(lib, "urlmon.lib")
 #pragma comment(lib, "shell32.lib")
+
 
 void InstallerThread::run() {
     SHELLEXECUTEINFO sei = { sizeof(sei) };
@@ -26,17 +28,20 @@ void InstallerThread::run() {
     sei.lpParameters = (LPCWSTR)args.utf16();
     sei.nShow = SW_HIDE;
 
+    bool success = false;
     if (ShellExecuteEx(&sei)) {
         WaitForSingleObject(sei.hProcess, INFINITE);
         CloseHandle(sei.hProcess);
-        QDir("C:\\Office_instalacija").removeRecursively();
-        emit finished(true);
-    } else {
-        emit finished(false);
+        success = true;
     }
+
+    QDir(installDir).removeRecursively();
+    emit finished(success);
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    checkOfficeInstallation();
+    setWindowIcon(QIcon(":/microsoft.ico"));
     setupUI();
     updateXML();
     int width = 420;
@@ -44,11 +49,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     resize(width, length);
 }
 
+void MainWindow::checkOfficeInstallation() {
+    QString officePath = "C:\\Program Files\\Microsoft Office";
+    if (QDir(officePath).exists()) {
+        QMessageBox::warning(nullptr, "Office već instaliran", "Detektovan je instaliran Microsoft Office na ovom računaru.\nAplikacija će se sada zatvoriti.");
+        QTimer::singleShot(0, []() { QCoreApplication::quit(); });
+    }
+}
+
 void MainWindow::setupUI() {
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
-    QLabel *versionLabel = new QLabel("<b>Select office version:</b>");
+    QLabel *versionLabel = new QLabel("<b>Odaberite verziju programa Office:</b>");
     mainLayout->addWidget(versionLabel);
 
     versionBox = new QComboBox(this);
@@ -56,24 +69,23 @@ void MainWindow::setupUI() {
     connect(versionBox, &QComboBox::currentIndexChanged, this, &MainWindow::updateXML);
     mainLayout->addWidget(versionBox);
 
-    // List of apps in specific order
+    // Izlista aplikacije f određenem redoslijedu
     QList<QPair<QString, QString>> apps = {
         {"Word", "Word"}, {"PowerPoint", "PowerPoint"}, {"Excel", "Excel"},
         {"Publisher", "Publisher"}, {"Outlook", "Outlook"}, {"Access", "Access"},
         {"Teams", "Teams"}, {"OneDrive", "OneDrive"}, {"OneNote", "OneNote"}
     };
 
-    QLabel *header = new QLabel("<b>Select Apps to install:</b>");
+    QLabel *header = new QLabel("<b>Odaberite aplikacije za instalaciju:</b>");
     mainLayout->addWidget(header);
 
-    // Group apps into pairs for 2 columns
+    //Grupira aplikacije u parove za 2 kolone
     for (int i = 0; i < apps.size(); i += 2) {
         QHBoxLayout *rowLayout = new QHBoxLayout();
         for (int j = 0; j < 2 && (i + j) < apps.size(); ++j) {
             QPair<QString, QString> app = apps[i + j];
             QCheckBox *cb = new QCheckBox(app.first, this);
 
-            // Uncheck these by default
             bool defaultChecked = (app.second != "Teams" && app.second != "OneDrive" && app.second != "OneNote" && app.second != "Outlook");
             cb->setChecked(defaultChecked);
 
@@ -89,7 +101,7 @@ void MainWindow::setupUI() {
     xmlPreview->setMaximumHeight(180);
     mainLayout->addWidget(xmlPreview);
 
-    QPushButton *installBtn = new QPushButton("Install", this);
+    QPushButton *installBtn = new QPushButton("Instaliraj", this);
     connect(installBtn, &QPushButton::clicked, this, &MainWindow::runInstallation);
     mainLayout->addWidget(installBtn);
 
@@ -101,7 +113,7 @@ QString MainWindow::generateXML() {
     QString version = versionBox->currentText();
     QString xml;
 
-    // Common forced exclusions
+
     QString forcedExclusions = "      <ExcludeApp ID=\"Groove\" />\n"
                                "      <ExcludeApp ID=\"Lync\" />\n"
                                "      <ExcludeApp ID=\"OneDrive\" />\n";
@@ -200,42 +212,40 @@ void MainWindow::runInstallation() {
     QString xmlPath = installDir + "\\Configuration_O2019.xml";
     QString targetExePath = installDir + "\\setup_office.exe";
 
-    // Save XML
+
     QFile xmlFile(xmlPath);
     if (!xmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, "Error", "Could not create configuration file.");
+        QMessageBox::critical(this, "Greška", "Nije moguće kreirati konfiguracioni fajl.");
         return;
     }
     xmlFile.write(generateXML().toUtf8());
     xmlFile.close();
 
-    // Copy from internal resources (embedded)
     QString sourcePath = ":/setup_office.exe";
 
     if (!QFile::exists(sourcePath)) {
-        QMessageBox::critical(this, "Error", "The 'setup_office.exe' was not embedded in this build. Please check your resources.");
+        QMessageBox::critical(this, "Greska", "Ova aplikacija ne može da se pokrene bez setup_office.exe.");
         return;
     }
 
-    // Force kill and cleanup to ensure we can overwrite
     system("taskkill /F /IM setup_office.exe /T 2>nul");
     Sleep(500);
 
     if (QFile::exists(targetExePath)) {
         if (!QFile::remove(targetExePath)) {
-            // Try one more time after a short delay
             Sleep(500);
             QFile::remove(targetExePath);
         }
     }
 
     if (!QFile::copy(sourcePath, targetExePath)) {
-        QMessageBox::critical(this, "Error", "Could not extract the embedded setup file to " + targetExePath);
+        QMessageBox::critical(this, "Greska", "Greska pri kopiranju setup_office.exe " + targetExePath);
         return;
     }
     InstallerThread *thread = new InstallerThread();
     thread->xmlPath = xmlPath;
     thread->targetExePath = targetExePath;
+    thread->installDir = installDir;
     thread->parentWidget = this;
     connect(thread, &InstallerThread::finished, this, &MainWindow::onInstallationFinished);
     connect(thread, &InstallerThread::finished, thread, &InstallerThread::deleteLater);
@@ -243,7 +253,9 @@ void MainWindow::runInstallation() {
 }
 
 void MainWindow::onInstallationFinished(bool success) {
-    if (!success) {
-        QMessageBox::critical(this, "Error", "Failed to run setup.");
+    if (success) {
+        QMessageBox::information(this, "Instalacija završena", "Office instalacija je uspešno pokrenuta i privremeni fajlovi su obrisani.");
+    } else {
+        QMessageBox::critical(this, "Greška", "Nije moguće pokrenuti instalaciju.");
     }
 }
