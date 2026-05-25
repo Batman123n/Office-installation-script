@@ -28,3 +28,7 @@ First clone my repo with this command: \
 #### Make sure you dont have MS office already installed
 #### Use this tool at your own risk. Always ensure you have the appropriate licenses for Microsoft Office.
 #### This tool is provided for administrative convenience and follows Microsoft's official deployment patterns.
+# Tool in action
+<p align="center">
+  <img width="450" alt="Dario Installer Preview" src="https://github.com/user-attachments/assets/3c07483a-8bc2-4ed8-911b-bce5727105c3" />
+</p>
